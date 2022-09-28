@@ -10,15 +10,17 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var rockPaperScissors = ["Paper", "Rock", "Scissors"].shuffled()
+    @State private var opponentsSelection = Int.random(in: 0...2)
+    @State private var score = 0
+    @State private var win = Bool.random()
     
     var body: some View {
-        let opponentsSelection = rockPaperScissors.randomElement()
         NavigationView {
             VStack{
                 Text("Your opponent has select:")
                     Button {
                     } label: {
-                        Image(opponentsSelection ?? "Failed to unwrap")
+                        Image(rockPaperScissors[opponentsSelection])
                             .resizable()
                             .frame(width: 50, height: 50, alignment: .center)
                     }
@@ -26,7 +28,7 @@ struct ContentView: View {
                 HStack{
                     ForEach(0..<3) { number in
                         Button {
-                            // game logic
+                            gameLogic(number)
                         } label: {
                             Image(rockPaperScissors[number])
                                 .resizable()
@@ -36,6 +38,12 @@ struct ContentView: View {
                 }
             }
         .navigationTitle("Rock, Paper, Scissors")
+        }
+    }
+    
+    func gameLogic(_ number: Int) {
+        if number == opponentsSelection {
+            score += 1
         }
     }
 }
