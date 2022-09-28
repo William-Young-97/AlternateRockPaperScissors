@@ -13,10 +13,24 @@ struct ContentView: View {
     @State private var opponentsSelection = Int.random(in: 0...2)
     @State private var score = 0
     @State private var win = Bool.random()
+    @State private var userInput = ""
     
     var body: some View {
         NavigationView {
             VStack{
+                Text("Please select your choice:")
+                HStack{
+                    ForEach(0..<3) { number in
+                        Button {
+                            self.userInput = gameLogic(number)
+                        } label: {
+                            Image(rockPaperScissors[number])
+                                .resizable()
+                                .frame(width: 50, height: 50, alignment: .center)
+                        }
+                    }
+                    Text(userInput)
+                }
                 Text("Your opponent has select:")
                     Button {
                     } label: {
@@ -24,26 +38,22 @@ struct ContentView: View {
                             .resizable()
                             .frame(width: 50, height: 50, alignment: .center)
                     }
-                Text("Please select your choice:")
-                HStack{
-                    ForEach(0..<3) { number in
-                        Button {
-                            gameLogic(number)
-                        } label: {
-                            Image(rockPaperScissors[number])
-                                .resizable()
-                                .frame(width: 50, height: 50, alignment: .center)
-                        }
-                    }
-                }
             }
         .navigationTitle("Rock, Paper, Scissors")
         }
     }
     
-    func gameLogic(_ number: Int) {
+    func gameLogic(_ number: Int) -> String {
         if number == opponentsSelection {
             score += 1
+        }
+        if rockPaperScissors[number] == "Paper" {
+            return "Clicked paper"
+        } else if rockPaperScissors[number] == "Scissors" {
+            return "Clicked Scissors"
+        }
+        else {
+            return "Clicked Rock"
         }
     }
 }
