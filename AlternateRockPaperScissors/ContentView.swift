@@ -2,15 +2,19 @@
 //  ContentView.swift
 //  AlternateRockPaperScissors
 //
-//  Created by William Young on 28/09/2022.
+//  Created by EngineerBetter on 28/09/2022.
 //
 
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView {
+            Form {
+                
+            }
+            .navigationTitle("Rock, Paper, Scissors")
+        }
     }
 }
 
