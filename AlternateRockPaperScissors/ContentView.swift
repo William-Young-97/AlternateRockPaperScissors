@@ -22,6 +22,18 @@ struct ContentView: View {
                             .resizable()
                             .frame(width: 50, height: 50, alignment: .center)
                     }
+                Text("Please select your choice:")
+                HStack{
+                    ForEach(0..<3) { number in
+                        Button {
+                            // game logic
+                        } label: {
+                            Image(rockPaperScissors[number])
+                                .resizable()
+                                .frame(width: 50, height: 50, alignment: .center)
+                        }
+                    }
+                }
             }
         .navigationTitle("Rock, Paper, Scissors")
         }
