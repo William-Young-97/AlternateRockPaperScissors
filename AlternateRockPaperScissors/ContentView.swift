@@ -8,12 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var rockPaperScissors = ["Paper", "Rock", "Scissors"].shuffled()
+    
     var body: some View {
+        let opponentsSelection = rockPaperScissors.randomElement()
         NavigationView {
-            Form {
-                
+            VStack{
+                Text("Your opponent has select:")
+                    Button {
+                    } label: {
+                        Image(opponentsSelection ?? "Failed to unwrap")
+                            .resizable()
+                            .frame(width: 50, height: 50, alignment: .center)
+                    }
             }
-            .navigationTitle("Rock, Paper, Scissors")
+        .navigationTitle("Rock, Paper, Scissors")
         }
     }
 }
