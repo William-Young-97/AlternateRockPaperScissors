@@ -22,6 +22,7 @@ struct ContentView: View {
             VStack{
                 if win {
                     Text("Please try to win!")
+                        .padding(15)
                     HStack{
                         ForEach(0..<3) { number in
                             Button {
@@ -37,19 +38,21 @@ struct ContentView: View {
                                     .frame(width: 50, height: 50, alignment: .center)
                             }
                         }
-                        Text(userInput)
                     }
                     VStack {
                         Text("Your opponent has selected:")
+                            .padding(15)
                             Button {
                             } label: {
                                 Image(rockPaperScissors[opponentsSelection])
                                     .resizable()
                                     .frame(width: 50, height: 50, alignment: .center)
                             }
+                            .padding(20)
                         Text("Your score is: \(score)/10")
-                        Text("\(totalTaps)")
                     }
+                    .padding(20)
+                    Text(userInput)
                     .alert("Game Over!", isPresented: $gameComplete) {
                         Button("Reset", action: reset)
                         } message: {
@@ -58,6 +61,7 @@ struct ContentView: View {
                         .navigationTitle("Rock, Paper, Scissors")
                 } else {
                     Text("Please try to lose!")
+                        .padding(15)
                     HStack{
                         ForEach(0..<3) { number in
                             Button {
@@ -72,19 +76,23 @@ struct ContentView: View {
                                     .resizable()
                                     .frame(width: 50, height: 50, alignment: .center)
                             }
+                            .padding(20)
                         }
-                        Text(userInput)
                     }
                     VStack {
                         Text("Your opponent has selected:")
+                            .padding(15)
                             Button {
                             } label: {
                                 Image(rockPaperScissors[opponentsSelection])
                                     .resizable()
                                     .frame(width: 50, height: 50, alignment: .center)
                             }
+                            .padding(20)
                         Text("Your score is: \(score)/10")
                     }
+                    .padding(20)
+                    Text(userInput)
                     .alert("Game Over!", isPresented: $gameComplete) {
                         Button("Reset", action: reset)
                         } message: {
