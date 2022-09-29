@@ -14,36 +14,56 @@ struct ContentView: View {
     @State private var score = 0
     @State private var win = Bool.random()
     @State private var userInput = ""
+
+//    Text("Your opponent has select:")
+//        Button {
+//        } label: {
+//            Image(rockPaperScissors[opponentsSelection])
+//                .resizable()
+//                .frame(width: 50, height: 50, alignment: .center)
+//        }
     
     var body: some View {
         NavigationView {
             VStack{
-                Text("Please select your choice:")
-                HStack{
-                    ForEach(0..<3) { number in
-                        Button {
-                            self.userInput = gameLogic(number)
-                        } label: {
-                            Image(rockPaperScissors[number])
-                                .resizable()
-                                .frame(width: 50, height: 50, alignment: .center)
+                if win {
+                    Text("Please try to win!")
+                    HStack{
+                        ForEach(0..<3) { number in
+                            Button {
+                                self.userInput = winGameLogic(number)
+                                win.toggle()
+                            } label: {
+                                Image(rockPaperScissors[number])
+                                    .resizable()
+                                    .frame(width: 50, height: 50, alignment: .center)
+                            }
                         }
+                        Text(userInput)
                     }
-                    Text(userInput)
+                        .navigationTitle("Rock, Paper, Scissors")
+                } else {
+                    Text("Please try to lose!")
+                    HStack{
+                        ForEach(0..<3) { number in
+                            Button {
+                                // Lose game logic
+                                win.toggle()
+                            } label: {
+                                Image(rockPaperScissors[number])
+                                    .resizable()
+                                    .frame(width: 50, height: 50, alignment: .center)
+                            }
+                        }
+                        Text(userInput)
+                    }
+                        .navigationTitle("Rock, Paper, Scissors")
                 }
-                Text("Your opponent has select:")
-                    Button {
-                    } label: {
-                        Image(rockPaperScissors[opponentsSelection])
-                            .resizable()
-                            .frame(width: 50, height: 50, alignment: .center)
-                    }
+                }
             }
-        .navigationTitle("Rock, Paper, Scissors")
         }
-    }
     
-    func gameLogic(_ number: Int) -> String {
+    func winGameLogic(_ number: Int) -> String {
         if number == opponentsSelection {
             score += 1
         }
