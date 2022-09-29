@@ -12,7 +12,9 @@ struct ContentView: View {
     @State private var rockPaperScissors = ["Paper", "Rock", "Scissors"].shuffled()
     @State private var opponentsSelection = Int.random(in: 0...2)
     @State private var score = 0
+    @State private var totalTaps = 0
     @State private var win = Bool.random()
+    @State private var gameComplete = false
     @State private var userInput = ""
     
     var body: some View {
@@ -26,6 +28,9 @@ struct ContentView: View {
                                 self.userInput = gameLogic(number)
                                 self.opponentsSelection = Int.random(in: 0...2)
                                 win.toggle()
+                                if totalTaps == 10 {
+                                    gameCompleteTrue()
+                                }
                             } label: {
                                 Image(rockPaperScissors[number])
                                     .resizable()
@@ -43,7 +48,13 @@ struct ContentView: View {
                                     .frame(width: 50, height: 50, alignment: .center)
                             }
                         Text("Your score is: \(score)/10")
+                        Text("\(totalTaps)")
                     }
+                    .alert("Game Over!", isPresented: $gameComplete) {
+                        Button("Reset", action: reset)
+                        } message: {
+                            Text("You scored is \(score)/10")
+                        }
                         .navigationTitle("Rock, Paper, Scissors")
                 } else {
                     Text("Please try to lose!")
@@ -53,6 +64,9 @@ struct ContentView: View {
                                 self.userInput = gameLogic(number)
                                 self.opponentsSelection = Int.random(in: 0...2)
                                 win.toggle()
+                                if totalTaps == 10 {
+                                    gameCompleteTrue()
+                                }
                             } label: {
                                 Image(rockPaperScissors[number])
                                     .resizable()
@@ -71,6 +85,11 @@ struct ContentView: View {
                             }
                         Text("Your score is: \(score)/10")
                     }
+                    .alert("Game Over!", isPresented: $gameComplete) {
+                        Button("Reset", action: reset)
+                        } message: {
+                            Text("You scored is \(score)/10")
+                        }
                         .navigationTitle("Rock, Paper, Scissors")
                     }
                 }
@@ -81,49 +100,73 @@ struct ContentView: View {
         switch (rockPaperScissors[number], rockPaperScissors[opponentsSelection], win) {
             // Player picks correctly on win turn
             case ("Paper", "Rock", true):
-              score += 1
-              return "You scored a point!"
+                totalTaps += 1
+                score += 1
+                return "You scored a point!"
             case ("Rock", "Scissors", true):
-              score += 1
-              return "You scored a point!"
+                totalTaps += 1
+                score += 1
+                return "You scored a point!"
             case ("Scissors", "Paper", true):
-              score += 1
-              return "You scored a point!"
+                totalTaps += 1
+                score += 1
+                return "You scored a point!"
             // Player picks incorrectly on win turn
             case ("Paper", "Scissors", true):
-              score -= 1
-              return "You lost a point!"
+                totalTaps += 1
+                score -= 1
+                return "You lost a point!"
             case ("Rock", "Paper", true):
-              score -= 1
-              return "You lost a point!"
+                totalTaps += 1
+                score -= 1
+                return "You lost a point!"
             case ("Scissors", "Rock", true):
-              score -= 1
-              return "You lost a point!"
+                totalTaps += 1
+                score -= 1
+                return "You lost a point!"
             // Player picks correctly on lose turn
             case ("Rock", "Paper", false):
-              score += 1
-              return "You scored a point!"
+                totalTaps += 1
+                score += 1
+                return "You scored a point!"
             case ("Scissors", "Rock", false):
-              score += 1
-              return "You scored a point!"
+                totalTaps += 1
+                score += 1
+                return "You scored a point!"
             case ("Paper", "Scissors", false):
-              score += 1
-              return "You scored a point!"
+                totalTaps += 1
+                score += 1
+                return "You scored a point!"
             // Player picks incorrectly on lose turn
             case ("Paper", "Rock", false):
-              score -= 1
-              return "You lost a point!"
+                totalTaps += 1
+                score -= 1
+                return "You lost a point!"
             case ("Rock", "Scissors", false):
-              score -= 1
-              return "You lost a point!"
+                totalTaps += 1
+                score -= 1
+                return "You lost a point!"
             case ("Scissors", "Paper", false):
-              score -= 1
-              return "You lost a point!"
+                totalTaps += 1
+                score -= 1
+                return "You lost a point!"
             // Player picks the same choice
             default:
-              return "It's a draw!"
+                totalTaps += 1
+                return "It's a draw!"
             }
         }
+    func gameCompleteTrue() {
+        gameComplete = true
+    }
+    
+    func reset() {
+        gameComplete = false
+        userInput = ""
+        score = 0
+        totalTaps = 0
+    }
+    
     }
 
 struct ContentView_Previews: PreviewProvider {
