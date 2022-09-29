@@ -28,6 +28,7 @@ struct ContentView: View {
                             ForEach(0..<3) { number in
                                 Button {
                                     self.userInput = gameLogic(number)
+                                    scoreZero()
                                     self.opponentsSelection = Int.random(in: 0...2)
                                     win.toggle()
                                     if totalTaps == 10 {
@@ -55,7 +56,7 @@ struct ContentView: View {
                             Text("Your score is: \(score)/10").fontWeight(.bold)
                         }
                         .padding(20)
-                        Text(userInput)
+                        Text(userInput).fontWeight(.bold)
                         .alert("Game Over!", isPresented: $gameComplete) {
                             Button("Reset", action: reset)
                             } message: {
@@ -69,6 +70,7 @@ struct ContentView: View {
                             ForEach(0..<3) { number in
                                 Button {
                                     self.userInput = gameLogic(number)
+                                    scoreZero()
                                     self.opponentsSelection = Int.random(in: 0...2)
                                     win.toggle()
                                     if totalTaps == 10 {
@@ -80,7 +82,6 @@ struct ContentView: View {
                                         .frame(width: 50, height: 50, alignment: .center)
                                         .clipShape(RoundedRectangle(cornerRadius: 10))
                                 }
-                                .padding(20)
                             }
                         }
                         VStack {
@@ -97,13 +98,13 @@ struct ContentView: View {
                             Text("Your score is: \(score)/10").fontWeight(.bold)
                         }
                         .padding(20)
-                        Text(userInput)
+                        Text(userInput).fontWeight(.bold)
                         .alert("Game Over!", isPresented: $gameComplete) {
                             Button("Reset", action: reset)
                             } message: {
                                 Text("You scored is \(score)/10")
                             }
-                            .navigationTitle("Rock, Paper, Scissors").foregroundColor(.indigo)
+                            .navigationTitle("Rock, Paper, Scissors")
                         }
                     }
                 }.frame(
@@ -183,6 +184,12 @@ struct ContentView: View {
         }
     func gameCompleteTrue() {
         gameComplete = true
+    }
+    
+    func scoreZero() {
+        if score <= -1 {
+            score = 0
+        }
     }
     
     func reset() {
