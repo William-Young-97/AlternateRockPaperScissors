@@ -19,88 +19,105 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            VStack{
-                if win {
-                    Text("Please try to win!")
-                        .padding(15)
-                    HStack{
-                        ForEach(0..<3) { number in
-                            Button {
-                                self.userInput = gameLogic(number)
-                                self.opponentsSelection = Int.random(in: 0...2)
-                                win.toggle()
-                                if totalTaps == 10 {
-                                    gameCompleteTrue()
-                                }
-                            } label: {
-                                Image(rockPaperScissors[number])
-                                    .resizable()
-                                    .frame(width: 50, height: 50, alignment: .center)
-                            }
-                        }
-                    }
-                    VStack {
-                        Text("Your opponent has selected:")
+            VStack {
+                VStack{
+                    if win {
+                        Text("Please try to win!").fontWeight(.bold)
                             .padding(15)
-                            Button {
-                            } label: {
-                                Image(rockPaperScissors[opponentsSelection])
-                                    .resizable()
-                                    .frame(width: 50, height: 50, alignment: .center)
-                            }
-                            .padding(20)
-                        Text("Your score is: \(score)/10")
-                    }
-                    .padding(20)
-                    Text(userInput)
-                    .alert("Game Over!", isPresented: $gameComplete) {
-                        Button("Reset", action: reset)
-                        } message: {
-                            Text("You scored is \(score)/10")
-                        }
-                        .navigationTitle("Rock, Paper, Scissors")
-                } else {
-                    Text("Please try to lose!")
-                        .padding(15)
-                    HStack{
-                        ForEach(0..<3) { number in
-                            Button {
-                                self.userInput = gameLogic(number)
-                                self.opponentsSelection = Int.random(in: 0...2)
-                                win.toggle()
-                                if totalTaps == 10 {
-                                    gameCompleteTrue()
+                        HStack{
+                            ForEach(0..<3) { number in
+                                Button {
+                                    self.userInput = gameLogic(number)
+                                    self.opponentsSelection = Int.random(in: 0...2)
+                                    win.toggle()
+                                    if totalTaps == 10 {
+                                        gameCompleteTrue()
+                                    }
+                                } label: {
+                                    Image(rockPaperScissors[number])
+                                        .resizable()
+                                        .frame(width: 50, height: 50, alignment: .center)
+                                        .clipShape(RoundedRectangle(cornerRadius: 10))
                                 }
-                            } label: {
-                                Image(rockPaperScissors[number])
-                                    .resizable()
-                                    .frame(width: 50, height: 50, alignment: .center)
                             }
-                            .padding(20)
                         }
-                    }
-                    VStack {
-                        Text("Your opponent has selected:")
+                        VStack {
+                            Text("Your opponent has selected:").fontWeight(.bold)
+                                .padding(15)
+                                Button {
+                                } label: {
+                                    Image(rockPaperScissors[opponentsSelection])
+                                        .resizable()
+                                        .frame(width: 50, height: 50, alignment: .center)
+                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                                }
+                                .padding(20)
+                            Text("Your score is: \(score)/10").fontWeight(.bold)
+                        }
+                        .padding(20)
+                        Text(userInput)
+                        .alert("Game Over!", isPresented: $gameComplete) {
+                            Button("Reset", action: reset)
+                            } message: {
+                                Text("You scored is \(score)/10").fontWeight(.bold)
+                            }
+                            .navigationTitle("Rock, Paper, Scissors")
+                    } else {
+                        Text("Please try to lose!").fontWeight(.bold)
                             .padding(15)
-                            Button {
-                            } label: {
-                                Image(rockPaperScissors[opponentsSelection])
-                                    .resizable()
-                                    .frame(width: 50, height: 50, alignment: .center)
+                        HStack{
+                            ForEach(0..<3) { number in
+                                Button {
+                                    self.userInput = gameLogic(number)
+                                    self.opponentsSelection = Int.random(in: 0...2)
+                                    win.toggle()
+                                    if totalTaps == 10 {
+                                        gameCompleteTrue()
+                                    }
+                                } label: {
+                                    Image(rockPaperScissors[number])
+                                        .resizable()
+                                        .frame(width: 50, height: 50, alignment: .center)
+                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                                }
+                                .padding(20)
                             }
-                            .padding(20)
-                        Text("Your score is: \(score)/10")
-                    }
-                    .padding(20)
-                    Text(userInput)
-                    .alert("Game Over!", isPresented: $gameComplete) {
-                        Button("Reset", action: reset)
-                        } message: {
-                            Text("You scored is \(score)/10")
                         }
-                        .navigationTitle("Rock, Paper, Scissors")
+                        VStack {
+                            Text("Your opponent has selected:").fontWeight(.bold)
+                                .padding(15)
+                                Button {
+                                } label: {
+                                    Image(rockPaperScissors[opponentsSelection])
+                                        .resizable()
+                                        .frame(width: 50, height: 50, alignment: .center)
+                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                                }
+                                .padding(20)
+                            Text("Your score is: \(score)/10").fontWeight(.bold)
+                        }
+                        .padding(20)
+                        Text(userInput)
+                        .alert("Game Over!", isPresented: $gameComplete) {
+                            Button("Reset", action: reset)
+                            } message: {
+                                Text("You scored is \(score)/10")
+                            }
+                            .navigationTitle("Rock, Paper, Scissors").foregroundColor(.indigo)
+                        }
                     }
-                }
+                }.frame(
+                    minWidth: 0,
+                    maxWidth: .infinity,
+                    minHeight: 0,
+                    maxHeight: .infinity,
+                    alignment: .center
+                  )
+                .background(
+                    LinearGradient(gradient: Gradient(colors: [.blue, .red, .green]), startPoint: .leading, endPoint: .trailing)
+               )
+                .ignoresSafeArea()
+                
             }
         }
     
